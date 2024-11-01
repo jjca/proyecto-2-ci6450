@@ -3,7 +3,8 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-
+@onready var map : TileMapLayer = %Map/Ground
+@onready var elements : TileMapLayer = %Map/Elements
 
 func _physics_process(delta: float) -> void:
 	
@@ -14,7 +15,7 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = input_direction * SPEED
 	
-	print(velocity.normalized())
+	#print(velocity.normalized())
 	
 	if (velocity.normalized().x == -1):
 		rotation = -PI	
@@ -24,4 +25,5 @@ func _physics_process(delta: float) -> void:
 		rotation = PI/2
 	elif (velocity.normalized().x == 1):
 		rotation = 0
+
 	move_and_slide()

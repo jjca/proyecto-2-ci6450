@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://clo351k2ogpio"]
 
 [ext_resource type="Texture2D" uid="uid://c6elqced5sd7r" path="res://assets/Spritesheet/sheet_charactersEquipment/characterBlue (1).tres" id="1_d51j6"]
-[ext_resource type="Script" path="res://scenes/players/player_1.gd" id="1_dg6lh"]
+[ext_resource type="Script" path="res://scripts/player_1.gd" id="1_dg6lh"]
 [ext_resource type="Texture2D" uid="uid://rxkmcvs6daby" path="res://assets/Spritesheet/sheet_charactersEquipment/characterBlue (11).tres" id="2_w6o1k"]
 [ext_resource type="Texture2D" uid="uid://oiifwvl0ujdf" path="res://assets/Spritesheet/sheet_charactersEquipment/racket_metal.tres" id="3_3j44n"]
 
