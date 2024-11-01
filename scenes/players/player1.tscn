@@ -1,12 +1,39 @@
 [gd_scene load_steps=9 format=3 uid="uid://clo351k2ogpio"]
 
-[ext_resource type="Texture2D" uid="uid://cn3y5p7smtx3i" path="res://assets/Spritesheet/sheet_characters/characterBlue (1).tres" id="1_d51j6"]
+[ext_resource type="Texture2D" uid="uid://c6elqced5sd7r" path="res://assets/Spritesheet/sheet_charactersEquipment/characterBlue (1).tres" id="1_d51j6"]
 [ext_resource type="Script" path="res://scenes/players/player_1.gd" id="1_dg6lh"]
-[ext_resource type="Texture2D" uid="uid://biv6h86hh84mw" path="res://assets/Spritesheet/sheet_characters/characterBlue (11).tres" id="2_w6o1k"]
-[ext_resource type="Texture2D" uid="uid://dd8g5jux4pfho" path="res://assets/Spritesheet/sheet_equipment/racket_metal.tres" id="3_3j44n"]
+[ext_resource type="Texture2D" uid="uid://rxkmcvs6daby" path="res://assets/Spritesheet/sheet_charactersEquipment/characterBlue (11).tres" id="2_w6o1k"]
+[ext_resource type="Texture2D" uid="uid://oiifwvl0ujdf" path="res://assets/Spritesheet/sheet_charactersEquipment/racket_metal.tres" id="3_3j44n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_olp4h"]
 size = Vector2(44, 35)
+
+[sub_resource type="Animation" id="Animation_uuo2k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightHand:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.16057]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftHand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_87mvv"]
 resource_name = "base"
@@ -37,33 +64,6 @@ tracks/1/keys = {
 "values": [-0.16057, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_uuo2k"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RightHand:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.16057]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("LeftHand:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tux4e"]
 _data = {
 "RESET": SubResource("Animation_uuo2k"),
@@ -71,6 +71,9 @@ _data = {
 }
 
 [node name="Player1" type="CharacterBody2D"]
+z_index = 5
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_dg6lh")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
@@ -97,7 +100,6 @@ texture = ExtResource("2_w6o1k")
 [node name="Racket" type="Sprite2D" parent="RightHand"]
 position = Vector2(15.0236, 0.53934)
 rotation = -0.0306844
-scale = Vector2(1, 1)
 texture = ExtResource("3_3j44n")
 
 [node name="LeftHand" type="Sprite2D" parent="."]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bgt38ujqtm03g"]
 
-[ext_resource type="PackedScene" uid="uid://bp37vlru33aa" path="res://gravel_court.tscn" id="1_yoeuk"]
+[ext_resource type="PackedScene" uid="uid://bp37vlru33aa" path="res://scenes/gravel_court.tscn" id="1_yoeuk"]
 [ext_resource type="PackedScene" uid="uid://clo351k2ogpio" path="res://scenes/players/player1.tscn" id="2_2k0qc"]
 
 [node name="Base" type="Node"]

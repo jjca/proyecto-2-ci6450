@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://b7tm867lbeoss"]
 
-[ext_resource type="Texture2D" uid="uid://bvq42atiexood" path="res://assets/Tilesheet/groundGravel.png" id="1_hqdgp"]
+[ext_resource type="Texture2D" uid="uid://mtjguy8flnb6" path="res://assets/Tilesheet/groundGravel.png" id="1_hqdgp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i54bt"]
 texture = ExtResource("1_hqdgp")
@@ -8,26 +8,20 @@ texture_region_size = Vector2i(64, 64)
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
-3:0/0/terrain = 0
 4:0/0 = 0
 4:1/0 = 0
 3:1/0 = 0
-3:1/0/terrain = 0
 1:1/0 = 0
 1:2/0 = 0
-1:2/0/terrain = 0
 1:3/0 = 0
 2:3/0 = 0
 3:3/next_alternative_id = 2
 3:3/0 = 0
-3:3/0/terrain = 0
 3:3/1 = 1
 3:3/1/texture_origin = Vector2i(-23, 23)
 4:3/0 = 0
 4:2/0 = 0
-4:2/0/terrain = 0
 3:2/0 = 0
-3:2/0/terrain = 0
 6:9/0 = 0
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
