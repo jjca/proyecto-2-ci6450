@@ -25,6 +25,11 @@ buses/size/viewport_width=1024
 window/size/viewport_width=1024
 window/size/viewport_height=768
 
+[editor]
+
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/kenny_spritesheet_importer/plugin.cfg")
