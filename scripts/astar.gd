@@ -57,8 +57,14 @@ func astar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic: Heuristi
 		return null
 	else:
 		var path : Array[Connection] = []
+		var nodes : PackedVector2Array
 		while current.node.coord != start.coord:
+			var node = current.getConnection().getToNode()
+			nodes.append(node.coord)
 			path.append(current.getConnection())
 			current = closedList.getNodeRecord(current.getConnection().getFromNode())
 		path.reverse()
+		nodes.reverse()
+		print(nodes)
+		print(path)
 		return path
