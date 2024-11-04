@@ -9,4 +9,4 @@ func estimateFromTo(fromNode: NodeTile, toNode: NodeTile) -> float:
 	var fromVect : Vector2i = fromNode.coord
 	var toVect : Vector2i = toNode.coord
 	#print(fromVect.distance_to(toVect))
-	return fromVect.distance_to(toVect)
+	return abs(fromVect.x - toVect.x) + abs(fromVect.y - toVect.y)

@@ -4,10 +4,13 @@ extends Node
 @onready var lines: TileMapLayer = %Map/Lines
 @onready var elements: TileMapLayer = %Map/Elements
 @onready var net: TileMapLayer = %Map/Net
+@onready var character_body_2d: CharacterBody2D = $CharacterBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	print(character_body_2d.position)
+	print(character_body_2d.global_position)
+	
 
 
 func _input(event):
@@ -17,12 +20,14 @@ func _input(event):
 		var list = ground.get_surrounding_cells(tileCoord)
 		for i in list:
 			ground.erase_cell(i)
-		var grafo = Graph.new()
-		var heuristic = Heuristic.new()
-		var from = NodeTile.new(Vector2i(1,5))
-		var to = NodeTile.new(Vector2i(51,80))
-		heuristic.goalNode = to
-		var AStarVar = AStar.new()
-		var result = AStarVar.astar(grafo,from,to,heuristic)
-		
-		print(result)
+		#var grafo = Graph.new()
+		#var heuristic = Heuristic.new()
+		#var from = NodeTile.new(ground.local_to_map(character_body_2d.position))
+		#var to = NodeTile.new(Vector2i(3,7))
+		#heuristic.goalNode = to
+		#var AStarVar = AStar.new()
+		#var result = AStarVar.astar(grafo,from,to,heuristic)
+		#for i in result:
+		#	character_body_2d.move_and_slide(ground.map_to_local(i.toNode.coord).normalized()*200)
+		#print(character_body_2d.position)
+		#print(result)
