@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://clo351k2ogpio"]
+[gd_scene load_steps=12 format=3 uid="uid://clo351k2ogpio"]
 
 [ext_resource type="Texture2D" uid="uid://c6elqced5sd7r" path="res://assets/Spritesheet/sheet_charactersEquipment/characterBlue (1).tres" id="1_d51j6"]
 [ext_resource type="Script" path="res://scripts/player_1.gd" id="1_dg6lh"]
 [ext_resource type="Texture2D" uid="uid://rxkmcvs6daby" path="res://assets/Spritesheet/sheet_charactersEquipment/characterBlue (11).tres" id="2_w6o1k"]
 [ext_resource type="Texture2D" uid="uid://oiifwvl0ujdf" path="res://assets/Spritesheet/sheet_charactersEquipment/racket_metal.tres" id="3_3j44n"]
+[ext_resource type="Script" path="res://scripts/states/Wandering.gd" id="5_mbv22"]
+[ext_resource type="Script" path="res://scripts/states/Running.gd" id="6_v1mhe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_olp4h"]
 size = Vector2(44, 35)
@@ -70,6 +72,48 @@ _data = {
 "base": SubResource("Animation_87mvv")
 }
 
+[sub_resource type="GDScript" id="GDScript_s1c7a"]
+script/source = "extends Node
+
+@export var initial_state : State
+
+var current_state : State
+var states : Dictionary = {}
+
+func _ready():
+	for child in get_children():
+		if child is State:
+			states[child.name.to_lower()] = child
+			child.Transitioned.connect(on_child_transition)
+	
+	if initial_state:
+		initial_state.Enter()
+		current_state = initial_state
+			
+func _process(delta):
+	if current_state: 
+		current_state.Update(delta)
+		
+func _physics_process(delta: float) -> void:
+	if current_state:
+		current_state.Physics_Update(delta)
+
+func on_child_transition(state,new_state_str):
+	if state != current_state:
+		return
+		
+	var new_state = states.get(new_state_str.to_lower())
+	if !new_state:
+		return
+		
+	if current_state:
+		current_state.Exit()
+	
+	new_state.Enter()
+	
+	current_state = new_state
+"
+
 [node name="Player1" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 0
@@ -114,5 +158,16 @@ autostart = true
 
 [node name="PathLine" type="Line2D" parent="."]
 width = 2.0
+
+[node name="StateMachine" type="Node" parent="."]
+script = SubResource("GDScript_s1c7a")
+
+[node name="Wandering" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("5_mbv22")
+player = NodePath("../..")
+
+[node name="Running" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
+script = ExtResource("6_v1mhe")
+player = NodePath("../..")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
