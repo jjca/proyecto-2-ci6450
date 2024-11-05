@@ -3,7 +3,8 @@ extends TileMapLayer
 var AStarProc : AStar
 var grafo : Graph
 var heuristic : Heuristic
-
+var cell_size = Vector2i(64,64)
+var grid_size = Vector2i(get_viewport_rect().size) / cell_size
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	grafo = Graph.new()
