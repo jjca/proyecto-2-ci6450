@@ -150,8 +150,6 @@ texture = ExtResource("3_3j44n")
 position = Vector2(8, -10)
 texture = ExtResource("2_w6o1k")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
@@ -159,8 +157,9 @@ autostart = true
 [node name="PathLine" type="Line2D" parent="."]
 width = 2.0
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = SubResource("GDScript_s1c7a")
+initial_state = NodePath("Wandering")
 
 [node name="Wandering" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("5_mbv22")
@@ -169,5 +168,9 @@ player = NodePath("../..")
 [node name="Running" type="Node" parent="StateMachine" node_paths=PackedStringArray("player")]
 script = ExtResource("6_v1mhe")
 player = NodePath("../..")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+enabled = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

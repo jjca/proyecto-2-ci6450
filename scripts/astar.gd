@@ -1,8 +1,8 @@
 class_name AStar extends Node
 
-func astar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic: Heuristic): #  [Connection]:
+func astar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic: Heuristic, map : Map): #  [Connection]:
 	var startRecord : NodeRecord
-	startRecord = NodeRecord.new(start,null,0,heuristic.estimate(start))
+	startRecord = NodeRecord.new(start,null,0.0,heuristic.estimate(start))
 	var openList : PathfindingList = PathfindingList.new()
 	openList.list.append(startRecord)
 	var closedList : PathfindingList = PathfindingList.new()
@@ -12,7 +12,6 @@ func astar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic: Heuristi
 		# Obtiene el elemento con menor costo en la lista usando el agloritmo de
 		# estimatedTotalCost
 		current = openList.smallestElement()
-	
 		# Si estamos en el nodo meta, terminamos
 		if current.node.coord == goalNode.coord:
 			break
@@ -22,9 +21,15 @@ func astar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic: Heuristi
 		for connection in connections:
 			# Creamos el endNode de cada conexion
 			var endNode : NodeTile = connection.getToNode()
+			
+			if endNode and !map.isValidTile(endNode.coord):
+				
+				continue
+				
 			var endNodeCost : float = current.getCostSoFar() + connection.getCost()
 			var endNodeHeuristic : float
 			var endNodeRecord : NodeRecord
+			
 			
 			if closedList.nodeTileInList(endNode):
 				endNodeRecord = closedList.getNodeRecord(endNode)
@@ -54,7 +59,7 @@ func astar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic: Heuristi
 		closedList.list.append(current)
 
 	if current.node.coord != goalNode.coord:
-		return null
+		return []
 	else:
 		var path : Array[Connection] = []
 		var nodes : PackedVector2Array
@@ -65,6 +70,6 @@ func astar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic: Heuristi
 			current = closedList.getNodeRecord(current.getConnection().getFromNode())
 		path.reverse()
 		nodes.reverse()
-		print(nodes)
-		print(path)
+		#print(nodes)
+		#print(path)
 		return path
