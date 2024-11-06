@@ -33,26 +33,37 @@ func Enter():
 
 func flee():
 	fleeing = true
+	var possible_choices = [
+		Vector2i(1,2),
+		Vector2i(8,5),
+		Vector2i(9,10),
+		Vector2i(11,5),
+		Vector2i(15,3),
+		Vector2i(4,7),
+		Vector2i(14,14)
+	]
+	var newPos : Vector2i = possible_choices.pick_random()
 	var targetPos = map.local_to_map(target.position)
-	print(targetPos)
+	var far : bool = false
+	while !far:
+		#print("distancias",targetPos.distance_to(newPos))
+		if targetPos.distance_to(newPos) > 5:
+			far = true
+		newPos = possible_choices.pick_random()
 	var cell_data = obstacles.get_cell_tile_data(targetPos)
-	print(cell_data)
 	if cell_data:
 		if !cell_data.get_custom_data("is_walkable"):
 			return
-		
 	else:
-		moveFromTo(player.position,targetPos,0.05)
+		moveFromTo(player.position,newPos,0.05)
 		return
-	
+
 	
 func Update(delta: float):
 	if wander_time > 0 and wander_time < 5 and walking:
 		wander_time -= delta
 	elif wander_time == 5:
 		Transitioned.emit(self,"Running")
-	elif !walking:
-		flee()
 	else:
 		pass
 		

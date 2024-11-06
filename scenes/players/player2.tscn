@@ -112,8 +112,9 @@ position = Vector2(8, -10)
 texture = ExtResource("3_wc03b")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
+autostart = true
 
 [node name="PathLine" type="Line2D" parent="."]
 width = 2.0
@@ -145,4 +146,10 @@ enabled = false
 shape = SubResource("CircleShape2D_fq2pp")
 debug_color = Color(0.991324, 0, 0.267056, 0.42)
 
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

@@ -4,6 +4,7 @@ class_name Player3 extends Player
 
 var running : bool = false
 
+
 func _ready():
 	position = position.snapped(Vector2.ONE * tilesize)
 	position += Vector2.ONE * tilesize/2
@@ -34,11 +35,9 @@ func set_path_line(points : Array[Connection]):
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Pelotas"):
-		pass
-		#state_machine.current_state.Transitioned.emit(state_machine.current_state,"findball")
+		state_machine.current_state.Transitioned.emit(state_machine.current_state,"findball")
 			
 	
 func _on_timer_timeout() -> void:
-	print("MANRICOAFLKSAFJLSÑ")
 	state_machine.current_state.Transitioned.emit(state_machine.current_state,"running")
 	running = true

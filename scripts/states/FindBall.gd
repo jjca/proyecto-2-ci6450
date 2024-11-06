@@ -37,14 +37,14 @@ func Update(delta: float):
 		Transitioned.emit(self,"wandering")
 		
 func Exit():
-	var new_position = target.position + Vector2(randi_range(-500,500),randi_range(-500,500))
+	var new_position = Vector2(randi_range(1,15),randi_range(1,15))
 	var validposition = false
 	while !validposition:
-		if BaseMap.isValidTile(BaseMap.local_to_map(new_position)):
+		if BaseMap.isValidTile(new_position):
 			validposition = true
 		else:
-			new_position = target.position + Vector2(randi_range(-500,500),randi_range(-500,500))
-	target.position = new_position
+			new_position = Vector2(randi_range(3,15),randi_range(3,15))
+	target.position = new_position * tilesize
 	foundball = false
 	
 func Physics_Update(delta: float):
