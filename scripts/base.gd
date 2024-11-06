@@ -3,13 +3,11 @@ extends Node
 @onready var ground: TileMapLayer = %Map/Ground
 @onready var lines: TileMapLayer = %Map/Lines
 @onready var obstacles: TileMapLayer = %Map/Obstacles
-@onready var character_body_2d: CharacterBody2D = $CharacterBody2D
 @onready var camera_2d: Camera2D = $Camera2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(character_body_2d.position)
-	print(character_body_2d.global_position)
+	pass
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_text_backspace"):
@@ -23,7 +21,7 @@ func _input(event):
 		camera_2d.set_zoom(camera_2d.get_zoom() - Vector2(0.25, 0.25))
 	if Input.is_action_just_released('+'): #and get_zoom() > Vector2.ONE:
 		camera_2d.set_zoom(camera_2d.get_zoom() + Vector2(0.25, 0.25))
-
+			
 		#var grafo = Graph.new()
 		#var heuristic = Heuristic.new()
 		#var from = NodeTile.new(ground.local_to_map(character_body_2d.position))

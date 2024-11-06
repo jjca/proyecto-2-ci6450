@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgt38ujqtm03g"]
+[gd_scene load_steps=9 format=3 uid="uid://bgt38ujqtm03g"]
 
 [ext_resource type="Script" path="res://scripts/base.gd" id="1_7t2r2"]
 [ext_resource type="PackedScene" uid="uid://bp37vlru33aa" path="res://scenes/map.tscn" id="1_yoeuk"]
 [ext_resource type="PackedScene" uid="uid://clo351k2ogpio" path="res://scenes/players/player1.tscn" id="2_2k0qc"]
+[ext_resource type="PackedScene" uid="uid://c4717v7pteply" path="res://scenes/players/player2.tscn" id="4_3dyal"]
+[ext_resource type="Script" path="res://scripts/customCam.gd" id="4_lb1vf"]
+[ext_resource type="PackedScene" uid="uid://bnkpth8xrfmbe" path="res://scenes/players/player3.tscn" id="5_qvefe"]
+[ext_resource type="PackedScene" uid="uid://cpaftrdvddxsq" path="res://scenes/football.tscn" id="6_pnxbs"]
+[ext_resource type="PackedScene" uid="uid://cktlidw4vd51v" path="res://scenes/tennisball.tscn" id="7_xlm07"]
 
 [node name="Base" type="Node"]
 script = ExtResource("1_7t2r2")
@@ -10,7 +15,20 @@ script = ExtResource("1_7t2r2")
 [node name="Map" parent="." instance=ExtResource("1_yoeuk")]
 unique_name_in_owner = true
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("2_2k0qc")]
+[node name="Player1" parent="." instance=ExtResource("2_2k0qc")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
+script = ExtResource("4_lb1vf")
+
+[node name="Player2" parent="." instance=ExtResource("4_3dyal")]
+position = Vector2(928, 608)
+
+[node name="Player3" parent="." instance=ExtResource("5_qvefe")]
+position = Vector2(480, 160)
+
+[node name="soccerball" parent="." instance=ExtResource("6_pnxbs")]
+position = Vector2(492, 329)
+
+[node name="tennisball" parent="." instance=ExtResource("7_xlm07")]
+position = Vector2(140, 180)

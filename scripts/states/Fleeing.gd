@@ -1,48 +1,63 @@
-class_name Wandering extends State
+class_name Fleeing extends State
 
 @onready var BaseMap : Map = $"../../%Map"
 @onready var map : TileMapLayer = $"../../%Map/Ground"
 @onready var obstacles : TileMapLayer = $"../../%Map/Obstacles"
 @onready var gridmap : Gridlines = $"../../%Map/GridLines"
 @export var player : Player
-@export var move_speed := 100.0
-var wandering : bool = false
+@export var move_speed := 300.0
+@export var target : Player
+
+var fleeing : bool 
 var wander_time : float
-var move_direction : Vector2
-
-
 var AStarProc : AStar
 var grafo : Graph
 var heuristic : Heuristic
 var cell_size = Vector2i(64,64)
+var walking : bool = false
+var maxSpeed : float = 100
+var velocity : Vector2 = Vector2.ZERO
+var maxAcceleration : float = 30
+var minRadius : float = 65
+var maxRadius : float = 400
+var timeToTarget : float = 0.5
 
 func _ready():
-	player = owner
 	grafo = Graph.new()
 	heuristic = Heuristic.new()
 	AStarProc = AStar.new()
+	
+func Enter():
+	target = get_tree().get_first_node_in_group("Jugador1")
+	flee()
 
-func randomize_wander():
-	wandering = true
-	wander_time = randf_range(1,8)
-	var destPos = Vector2i(randi_range(0,15),randi_range(0,11))
-	var cell_data = obstacles.get_cell_tile_data(destPos)
+func flee():
+	fleeing = true
+	var targetPos = map.local_to_map(target.position)
+	print(targetPos)
+	var cell_data = obstacles.get_cell_tile_data(targetPos)
+	print(cell_data)
 	if cell_data:
 		if !cell_data.get_custom_data("is_walkable"):
 			return
-	moveFromTo(player.position,destPos,0.05)
+		
+	else:
+		moveFromTo(player.position,targetPos,0.05)
+		return
 	
-func Enter():
-	randomize_wander()
 	
 func Update(delta: float):
-	if wander_time > 0:
+	if wander_time > 0 and wander_time < 5 and walking:
 		wander_time -= delta
-	else: 
-		randomize_wander()
+	elif wander_time == 5:
+		Transitioned.emit(self,"Running")
+	elif !walking:
+		flee()
+	else:
+		pass
 		
 func Physics_Update(delta: float):
-	if player.global_path and player.global_path.size() > 0:
+	if player.global_path != null and player.global_path.size() > 0:
 		player.set_path_line(player.global_path)
 		var conn : Connection = player.global_path[player.current_target_index]
 		var target_pos : Vector2i = conn.toNode.coord * tilesize + Vector2i.ONE * tilesize/2
@@ -52,13 +67,13 @@ func Physics_Update(delta: float):
 		await get_tree().create_timer(0.5,true,true).timeout
 		player.path_line.global_rotation = 0
 		
-		if player.position.distance_to(target_pos) < 1.0:
+		if player.position.distance_to(target_pos) < 0.1:
 			player.global_path.remove_at(0)
 
 		if player.global_path.size() == 0:
 			player.path_line.clear_points()
 			player.velocity = Vector2.ZERO
-			wandering = false
+			walking = false
 
 func moveFromTo(currentPos : Vector2i, destPos :Vector2i,delta :float):
 	var from = NodeTile.new(map.local_to_map(currentPos))

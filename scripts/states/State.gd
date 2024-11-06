@@ -1,5 +1,7 @@
 class_name State extends Node
 
+var tilesize = 64
+
 signal Transitioned
 
 func Update(_delta: float):

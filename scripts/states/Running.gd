@@ -1,7 +1,7 @@
 class_name Running extends State
 
-@export var player: CharacterBody2D
-@export var move_speed := 300.0
+@export var player: Player
+@export var move_speed := 600.0
 
 var move_direction : Vector2
 var distance : float
@@ -13,6 +13,8 @@ func randomize_running():
 	move_direction = move_direction.normalized()
 	
 func Enter():
+	#player.path_line.default_color = Color(1, 1, 1, 1)
+	print("CORRIENDO ",player.name)
 	randomize_running()
 		
 func Physics_Update(delta: float):
@@ -20,6 +22,8 @@ func Physics_Update(delta: float):
 		player.velocity = move_direction * move_speed
 	
 	distance = player.position.distance_to(old_position)
-	print(distance)
-	if distance > 200:
-		Transitioned.emit(self, "Wandering")
+	
+	if distance > 100:
+		Transitioned.emit(self,"wandering")
+	
+	player.move_and_slide()

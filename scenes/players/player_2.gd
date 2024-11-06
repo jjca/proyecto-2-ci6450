@@ -1,27 +1,5 @@
-class_name Player extends CharacterBody2D
+class_name Player2 extends Player
 
-@export var SPEED := 300.0
-@onready var timerr = $Stalking_Timer
-@onready var BaseMap : Map = %Map
-@onready var map : TileMapLayer = %Map/Ground
-@onready var obstacles : TileMapLayer = %Map/Obstacles
-@onready var gridmap : Gridlines = %Map/GridLines
-@onready var state_machine: StateMachine = $StateMachine
-
-var stalking : bool = false
-var tilesize = 64
-var snapp = Vector2.ONE * tilesize
-@onready var path_line: Line2D = $PathLine
-var moving = false
-var global_path : Array
-var current_target_index = 0
-
-var inputs = {
-	"right": Vector2.RIGHT,
-	"left": Vector2.LEFT,
-	"up": Vector2.UP,
-	"down": Vector2.DOWN
-}
 
 func _ready():
 	position = position.snapped(Vector2.ONE * tilesize)
@@ -63,13 +41,15 @@ func set_path_line(points : Array[Connection]):
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	print(state_machine.current_state)
+	print(body.name)
 	if body.name == "Player2":
-	#	print("mira si!")
+		#print("mira si!")
 		if state_machine.current_state.name != "Stalking":
 			state_machine.current_state.Transitioned.emit(state_machine.current_state,"stalking")
-	#		print("stalkeando")
-	#		print(state_machine.current_state)
-	#		print("pues no mi ciela")
+		#	print("stalkeando")
+		#	print(state_machine.current_state)
+		#	print("pues no mi ciela")
 			
 	
 

@@ -1,6 +1,6 @@
 class_name AStar extends Node
 
-func astar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic: Heuristic, map : Map): #  [Connection]:
+func aStar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic : Heuristic, map : Map): #  [Connection]:
 	var startRecord : NodeRecord
 	startRecord = NodeRecord.new(start,null,0.0,heuristic.estimate(start))
 	var openList : PathfindingList = PathfindingList.new()
@@ -70,6 +70,4 @@ func astar(graph: Graph,start: NodeTile, goalNode: NodeTile, heuristic: Heuristi
 			current = closedList.getNodeRecord(current.getConnection().getFromNode())
 		path.reverse()
 		nodes.reverse()
-		#print(nodes)
-		#print(path)
 		return path

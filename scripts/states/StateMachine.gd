@@ -1,4 +1,4 @@
-extends Node
+class_name StateMachine extends Node
 
 @export var initial_state : State
 
@@ -24,6 +24,9 @@ func _physics_process(delta: float) -> void:
 		current_state.Physics_Update(delta)
 
 func on_child_transition(state,new_state_str):
+	print("señals")
+	print(state)
+	print(current_state)
 	if state != current_state:
 		return
 		

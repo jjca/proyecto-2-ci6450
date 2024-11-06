@@ -1,5 +1,6 @@
-extends TileMapLayer
+class_name Gridlines extends TileMapLayer
 
+@onready var map: Map = $".."
 @export var cell_size = Vector2(64, 64)
 @export var cells : PackedVector2Array
 var grid_size
@@ -9,6 +10,7 @@ func _process(_delta):
 
 func _ready():
 	initialize_grid()
+	draw_center()
 
 func initialize_grid():
 	grid_size = Vector2i(get_viewport_rect().size)
@@ -17,6 +19,7 @@ func _draw():
 	draw_grid()
 	#draw_rect(Rect2(Vector2(0,1) * cell_size, cell_size), Color.GREEN_YELLOW)
 	draw_squares()
+	#draw_center()
 
 func draw_grid():
 	for x in grid_size.x + 1:
@@ -27,7 +30,20 @@ func draw_grid():
 		draw_line(Vector2(0, y * cell_size.y),
 			Vector2(grid_size.x * cell_size.x, y * cell_size.y),
 			Color.DARK_GRAY, 1.0)
+		
+func draw_center():
+	for x in range(grid_size.x):
+		for y in range(grid_size.y):
+			if x == x and y == y:
+				var center_position = Vector2(x * cell_size.x + cell_size.x / 2, y * cell_size.y + cell_size.y / 2)
+				#var is_valid = map.isValidTile(Vector2i(x, y))
+				var color = Color.AQUA
+				draw_circle(center_position, 5.0, color)
 			
 func draw_squares():
 	for cell in cells:
 		draw_rect(Rect2(cell * cell_size, cell_size), Color.GREEN_YELLOW)
+		
+
+func clear_squares():
+	cells = []
