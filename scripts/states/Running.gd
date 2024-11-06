@@ -14,7 +14,6 @@ func randomize_running():
 	
 func Enter():
 	#player.path_line.default_color = Color(1, 1, 1, 1)
-	print("CORRIENDO ",player.name)
 	randomize_running()
 		
 func Physics_Update(delta: float):
