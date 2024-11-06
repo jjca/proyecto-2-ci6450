@@ -37,10 +37,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			pass
 
 func _physics_process(delta: float) -> void:
-	#print(state_machine.states)
-	#print(state_machine.states.values())
-	#print(state_machine.states.get("wandering"))
-	#print(state_machine.states.keys())
 	if state_machine.current_state.name == "Stalking":
 		stalking = true
 		timerr.start()
@@ -64,17 +60,11 @@ func set_path_line(points : Array[Connection]):
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player2":
-	#	print("mira si!")
 		if state_machine.current_state.name != "Stalking":
 			state_machine.current_state.Transitioned.emit(state_machine.current_state,"stalking")
-	#		print("stalkeando")
-	#		print(state_machine.current_state)
-	#		print("pues no mi ciela")
-			
-	
 
 
 func _on_timer_timeout() -> void:
-	state_machine.current_state.Transitioned.emit(state_machine.current_state,"wandering")
-	#print("se acabó el acoso")
 	stalking = false
+	state_machine.current_state.Transitioned.emit(state_machine.current_state,"wandering")
+	
