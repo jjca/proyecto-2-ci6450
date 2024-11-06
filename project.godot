@@ -10,10 +10,9 @@ config_version=5
 
 [application]
 
-config/name="testing"
+config/name="Proyecto-2"
 run/main_scene="res://scenes/base.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
 
 [audio]
 
@@ -22,8 +21,8 @@ buses/size/viewport_width=1024
 
 [display]
 
-window/size/viewport_width=1168
-window/size/viewport_height=1024
+window/size/viewport_width=1280
+window/size/viewport_height=1000
 
 [editor]
 
@@ -33,6 +32,12 @@ version_control/autoload_on_startup=true
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/kenny_spritesheet_importer/plugin.cfg")
+
+[global_group]
+
+Jugadorp=""
+Jugador1=""
+Pelotas=""
 
 [input]
 
